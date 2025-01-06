@@ -2,7 +2,7 @@ import GameBoard from "./pages/Gameboard";
 import { useState } from "react";
 
 function App() {
-  const [turn, setTurn] = useState("O");
+  const [turn, setTurn] = useState("circle");
   const [winningMessage, setWinningMessage] = useState(null);
   const [isGameOver, setIsGameOver] = useState(false);
 
