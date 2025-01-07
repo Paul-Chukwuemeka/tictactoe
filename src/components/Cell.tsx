@@ -1,5 +1,5 @@
 import React from "react";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AppContext } from "../App";
 
 interface CellProps {
@@ -7,6 +7,21 @@ interface CellProps {
 }
 
 const Cell: React.FC<CellProps> = ({ id }) => {
+  const {
+    turn,
+    setTurn,
+    isTie,
+    setIsTie,
+    cells,
+    setCells,
+    isGameOver,
+    setIsGameOver,
+  } = useContext(AppContext);
+
+  useEffect(() => {
+    checkGame()
+  }, [turn]);
+
   const winningCombinations = [
     [0, 1, 2],
     [3, 4, 5],
@@ -17,8 +32,7 @@ const Cell: React.FC<CellProps> = ({ id }) => {
     [0, 4, 8],
     [2, 4, 6],
   ];
-  const { turn, setTurn, cells, setCells,isGameOver,setIsGameOver } =
-    useContext(AppContext);
+
   const handleClick = (
     e: React.MouseEvent<HTMLDivElement>
   ) => {
@@ -35,6 +49,9 @@ const Cell: React.FC<CellProps> = ({ id }) => {
     }
 
     if (!taken) {
+      if (isGameOver) {
+        return;
+      }
       if (turn === "Circle") {
         setTurn("Cross");
         handleCellUpdate("Circle");
@@ -71,7 +88,6 @@ const Cell: React.FC<CellProps> = ({ id }) => {
   };
 
   const checkGame = () => {
-
     winningCombinations.forEach((combination) => {
       const [a, b, c] = combination;
       if (
@@ -79,11 +95,16 @@ const Cell: React.FC<CellProps> = ({ id }) => {
         cells[a] === cells[b] &&
         cells[a] === cells[c]
       ) {
-      console.log(`${cells[a]} wins!`);
+        setIsGameOver(true);
+        console.log("Game Over");
       }
+
     });
+    if (!isGameOver && cells.every(cell => cell !== "")) {
+      setIsTie(true);
+      console.log("It's a tie!");
+    }
   };
-  checkGame();
   return (
     <div
       className="border border-[#3b455c] flex justify-center items-center relative"

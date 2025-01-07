@@ -7,7 +7,7 @@ const Gameboard: React.FC = () => {
   return (
     <>
       <div className="gameboard w-80 h-80 bg-sky-300 grid grid-cols-3 grid-rows-3">
-        {cells.map((cell, index) => (
+        {cells.map((_, index) => (
           <Cell id={index} key={index} />
         ))}
       </div>

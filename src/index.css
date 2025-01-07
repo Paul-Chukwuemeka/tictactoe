@@ -3,11 +3,12 @@
 @import "tailwindcss/utilities";
 
 body{
-    background-color: #f3f4f6;
+    background-color: black;
     height: 100vh;
     display: flex;
     justify-content: center;
     font-family: 'Poppins', sans-serif;
+    color:white
 }
 
 .circle{
