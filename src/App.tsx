@@ -91,6 +91,20 @@ function App() {
           <button className="absolute right-0 text-3xl hover:text-sky-500"
           onClick={()=>{
             setScore({circle:0,cross:0})
+            setCells(Array(9).fill(""));
+            setTurn("Circle")
+            setIsGameOver(false);
+            setIsTie(false);
+            const cellElements =
+              document.querySelectorAll(
+                ".cell > div:first-child"
+              );
+            cellElements.forEach((element) => {
+              element.classList.remove(
+                "circle",
+                "cross"
+              );
+            });
           }}
           >
           <MdOutlineRestartAlt title="Reset board" />

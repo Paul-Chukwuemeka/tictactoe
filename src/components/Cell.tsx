@@ -117,6 +117,7 @@ const Cell: React.FC<CellProps> = ({ id }) => {
       cells.every((cell) => cell !== "")
     ) {
       setIsTie(true);
+      clearBoard()
       console.log("It's a tie!");
     }
   };
