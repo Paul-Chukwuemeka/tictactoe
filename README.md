@@ -27,8 +27,8 @@ game is a draw.
 
 ## How To Clone
 
-1. git clone https://github.com/Paul-Chukwuemeka/tictactoe.git
-
+1. git clone
+   https://github.com/Paul-Chukwuemeka/tictactoe.git
 
 ## Technologies Used
 
