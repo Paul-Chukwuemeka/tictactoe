@@ -1,5 +1,6 @@
 import GameBoard from "./pages/Gameboard";
 import { useState, createContext } from "react";
+import { MdOutlineRestartAlt } from "react-icons/md";
 import ParticlesComponent from "./components/ParticlesComponent";
 
 interface AppContextType {
@@ -69,7 +70,7 @@ function App() {
       }}
     >
       <ParticlesComponent />
-      <div className="flex flex-col items-center gap-6 h-screen p-12 relative">
+      <div className="flex flex-col items-center gap-4 h-screen p-12 relative">
         <h1 className="text-3xl font-bold text-sky-500">
           Tic-
           <span className="text-red-500">
@@ -80,7 +81,22 @@ function App() {
             Toe
           </span>
         </h1>
-        <GameBoard />gap-[0.4px] 
+        <div className="flex items-center justify-center gap-4 relative w-full">
+          <p className="text-2xl">
+            Circle: {score.circle}
+          </p>
+          <p className="text-2xl">
+            Cross: {score.cross}
+          </p>
+          <button className="absolute right-0 text-3xl hover:text-sky-500"
+          onClick={()=>{
+            setScore({circle:0,cross:0})
+          }}
+          >
+          <MdOutlineRestartAlt title="Reset board" />
+          </button>
+        </div>
+        <GameBoard />
         <p className="text-2xl">{isTie ? "It's a tie!" : isGameOver ? winningMessage : message }</p>
         <p className="absolute bottom-0 p-5 text-xl">
           Built By{" "}

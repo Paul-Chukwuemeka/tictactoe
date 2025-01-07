@@ -15,6 +15,8 @@ const Cell: React.FC<CellProps> = ({ id }) => {
     setCells,
     isGameOver,
     setIsGameOver,
+    score,
+    setScore,
   } = useContext(AppContext);
 
   useEffect(() => {
@@ -95,6 +97,18 @@ const Cell: React.FC<CellProps> = ({ id }) => {
         cells[a] === cells[c]
       ) {
         setIsGameOver(true);
+        clearBoard();
+        if (cells[a] === "Circle") {
+          setScore({
+            circle: score.circle + 1,
+            cross: score.cross,
+          });
+        } else {
+          setScore({
+            circle: score.circle,
+            cross: score.cross + 1,
+          });
+        }
         return;
       }
     }
@@ -106,9 +120,27 @@ const Cell: React.FC<CellProps> = ({ id }) => {
       console.log("It's a tie!");
     }
   };
+  const clearBoard = () => {
+    setTimeout(() => {
+      setCells(Array(9).fill(""));
+      setTurn("Circle")
+      setIsGameOver(false);
+      setIsTie(false);
+      const cellElements =
+        document.querySelectorAll(
+          ".cell > div:first-child"
+        );
+      cellElements.forEach((element) => {
+        element.classList.remove(
+          "circle",
+          "cross"
+        );
+      });
+    }, 1000);
+  };
   return (
     <div
-      className="border-2 border-[#3b455c] flex justify-center items-center relative"
+      className="cell border border-[#3b455c] w-[101%] flex justify-center items-center relative"
       id={id.toString()}
     >
       <div></div>
