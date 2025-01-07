@@ -18,8 +18,8 @@ const Cell: React.FC<CellProps> = ({ id }) => {
   } = useContext(AppContext);
 
   useEffect(() => {
-    checkGame()
-  }, [turn]);
+    checkGame();
+  }, [cells]);
 
   const winningCombinations = [
     [0, 1, 2],
@@ -87,7 +87,7 @@ const Cell: React.FC<CellProps> = ({ id }) => {
   };
 
   const checkGame = () => {
-    winningCombinations.forEach((combination) => {
+    for (const combination of winningCombinations) {
       const [a, b, c] = combination;
       if (
         cells[a] &&
@@ -95,18 +95,20 @@ const Cell: React.FC<CellProps> = ({ id }) => {
         cells[a] === cells[c]
       ) {
         setIsGameOver(true);
-        console.log("Game Over");
+        return;
       }
-
-    });
-    if (!isGameOver && cells.every(cell => cell !== "")) {
+    }
+    if (
+      !isGameOver &&
+      cells.every((cell) => cell !== "")
+    ) {
       setIsTie(true);
       console.log("It's a tie!");
     }
   };
   return (
     <div
-      className="border border-[#3b455c] flex justify-center items-center relative"
+      className="border-2 border-[#3b455c] flex justify-center items-center relative"
       id={id.toString()}
     >
       <div></div>

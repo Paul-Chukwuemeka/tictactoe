@@ -20,7 +20,7 @@ const ParticlesComponent = () => {
   }, []);
 
   const particlesLoaded = (container) => {
-    console.log(container);
+ 
   };
 
   const options = useMemo(
@@ -41,7 +41,7 @@ const ParticlesComponent = () => {
           },
           random: true,
           sync: false,
-          speed: 0.1,
+          speed: 0.4,
           straight: false,
         },
         number: {
@@ -64,7 +64,7 @@ const ParticlesComponent = () => {
           type: "circle",
         },
         size: {
-          value: { min: 1, max: 1.2 },
+          value: { min: 1.5, max: 1.7 },
         },
       },
       detectRetina: true,
