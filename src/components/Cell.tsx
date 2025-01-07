@@ -10,7 +10,6 @@ const Cell: React.FC<CellProps> = ({ id }) => {
   const {
     turn,
     setTurn,
-    isTie,
     setIsTie,
     cells,
     setCells,
