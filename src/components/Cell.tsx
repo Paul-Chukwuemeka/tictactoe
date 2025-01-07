@@ -1,24 +1,24 @@
 import React from "react";
+import { useContext } from "react";
+import { AppContext } from "../App";
 
 interface CellProps {
-  cells: Array<string>;
   id: number;
-  turn: string;
-  setTurn: React.Dispatch<
-    React.SetStateAction<string>
-  >;
-  setCells: React.Dispatch<
-    React.SetStateAction<string[]>
-  >;
 }
 
-const Cell: React.FC<CellProps> = ({
-  cells,
-  id,
-  turn,
-  setTurn,
-  setCells,
-}) => {
+const Cell: React.FC<CellProps> = ({ id }) => {
+  const winningCombinations = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+  const { turn, setTurn, cells, setCells,isGameOver,setIsGameOver } =
+    useContext(AppContext);
   const handleClick = (
     e: React.MouseEvent<HTMLDivElement>
   ) => {
@@ -35,17 +35,17 @@ const Cell: React.FC<CellProps> = ({
     }
 
     if (!taken) {
-      if (turn === "circle") {
-        setTurn("cross");
-        handleCellUpdate("circle");
+      if (turn === "Circle") {
+        setTurn("Cross");
+        handleCellUpdate("Circle");
         target.previousSibling
           ? (
               target.previousSibling as HTMLElement
             ).classList.add("circle")
           : "";
       } else {
-        setTurn("circle");
-        handleCellUpdate("cross");
+        setTurn("Circle");
+        handleCellUpdate("Cross");
 
         target.previousSibling
           ? (
@@ -55,7 +55,6 @@ const Cell: React.FC<CellProps> = ({
       }
     } else {
       setTurn(turn);
-      console.log("taken");
     }
   };
   const handleCellUpdate = (
@@ -63,15 +62,28 @@ const Cell: React.FC<CellProps> = ({
   ) => {
     const nextCells = cells.map((cell, index) => {
       if (index === id) {
-        return className
+        return className;
       } else {
         return cell;
       }
     });
     setCells(nextCells);
   };
-  console.log(cells)
 
+  const checkGame = () => {
+
+    winningCombinations.forEach((combination) => {
+      const [a, b, c] = combination;
+      if (
+        cells[a] &&
+        cells[a] === cells[b] &&
+        cells[a] === cells[c]
+      ) {
+      console.log(`${cells[a]} wins!`);
+      }
+    });
+  };
+  checkGame();
   return (
     <div
       className="border border-[#3b455c] flex justify-center items-center relative"

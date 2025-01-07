@@ -1,32 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import { AppContext } from "../App";
 import Cell from "../components/Cell";
 
-interface GameBoardProps {
-  turn: string;
-  setTurn: React.Dispatch<
-    React.SetStateAction<string>
-  >;
-}
-
-const Gameboard: React.FC<GameBoardProps> = ({
-  turn,
-  setTurn,
-}) => {
-  const [cells, setCells] = useState<Array<string>>(
-    ["", "", "", "", " ", "", "", "", ""]
-  );
+const Gameboard: React.FC = () => {
+  const { cells } = useContext(AppContext);
   return (
     <>
       <div className="gameboard w-80 h-80 bg-sky-300 grid grid-cols-3 grid-rows-3">
         {cells.map((cell, index) => (
-          <Cell
-            key={index}
-            id={index}
-            turn={turn}
-            setTurn={setTurn}
-            cells={cells}
-            setCells={setCells}
-          />
+          <Cell id={index} key={index} />
         ))}
       </div>
     </>
